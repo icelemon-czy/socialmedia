@@ -3,7 +3,10 @@ import "./leftbar.scss"
 
 const Leftbar =() => {
     return (
-        <div className={"leftbar"}> LeftBar </div>
+        <div className={"leftbar"}>
+            <div className={"container"}>
+            </div>
+        </div>
     )
 }
 

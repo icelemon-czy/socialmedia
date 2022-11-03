@@ -72,3 +72,9 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 Package:
 npm add react-router-dom
 npm add sass
+
+Icons:
+Material Icons
+mui.com/material-ui/material-icons
+
+npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
