@@ -11,18 +11,20 @@ import Leftbar from "./components/leftbar/leftbar";
 import Rightbar from "./components/rightbar/Rightbar";
 import Home from "./pages/home/Home";
 import Profile from "./pages/profile/Profile";
-
+import "./style.scss";
 function App() {
 
     const currentUser = true;
 
     const Layout = ()=>{
         return(
-            <div>
+            <div className={"theme-light"}>
                 <Navbar/>
                 <div style={{display:"flex"}}>
                     <Leftbar/>
-                    <Outlet />
+                    <div style={{flex:6}}>
+                        <Outlet />
+                    </div>
                     <Rightbar/>
                 </div>
             </div>
