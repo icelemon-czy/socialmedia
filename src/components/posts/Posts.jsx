@@ -1,6 +1,6 @@
-import React from "react"
-import "./posts.scss"
-
+import React from "react";
+import "./posts.scss";
+import Post from "../post/Post";
 const Posts =() => {
     // Dummy Data
     const posts = [
@@ -25,14 +25,12 @@ const Posts =() => {
 
     return (
         <div className={"posts"}>
-            {posts.map(post=>(
-                <div className={"post"}>
-
-                </div>
-            ))
+            {posts.map(
+                post=>( <Post post={post} key={post.id}/> )
+            )
             }
         </div>
-    )
+    );
 }
 
 export default Posts;
