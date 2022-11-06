@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useContext} from "react"
 import "./leftbar.scss"
 import Friends from "../../images/1.png";
 import Groups from "../../images/2.png";
@@ -13,16 +13,19 @@ import Messages from "../../images/10.png";
 import Tutorials from "../../images/11.png";
 import Courses from "../../images/12.png";
 import Fund from "../../images/13.png";
+import {AuthContext} from "../../context/authContext";
 
 
 const Leftbar =() => {
+    const {currentUser} = useContext(AuthContext);
+
     return (
         <div className={"leftbar"}>
             <div className={"container"}>
                 <div className={"menu"}>
                     <div className={"user"}>
-                        <img src={"https://images.pexels.com/photos/3228727/pexels-photo-3228727.jpeg?auto=compress&cs=tinysrgb&w=1600"} alt={""} />
-                        <span>John Doe</span>
+                        <img src={currentUser.profilePic} alt={""} />
+                        <span>{currentUser.name}</span>
                     </div>
                     <div className={"item"}>
                         <img src={Friends}/>
