@@ -9,6 +9,10 @@
     background-color: themed("bg");
     color: themed("textColor");
 
+    @include mobile{
+      display: none;
+    }
+
     /*Scroll bar is ugly */
     &::-webkit-scrollbar {
       display: none;

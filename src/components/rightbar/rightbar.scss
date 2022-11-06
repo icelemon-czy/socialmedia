@@ -8,6 +8,13 @@
     overflow: scroll;
     background-color: themed("bgSoft");
 
+    @include mobile{
+      display: none;
+    }
+    @include tablet{
+      display: none;
+    }
+
     /*Scroll bar is ugly */
     &::-webkit-scrollbar {
       display: none;
