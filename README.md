@@ -78,3 +78,15 @@ Material Icons
 mui.com/material-ui/material-icons
 
 npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
+
+npm init -y
+npm i express mysql nodemon
+
+Password: 
+yarn add bcryptjs
+
+Token and Security: 
+yarn add jsonwebtoken cookie-parser cors
+
+// Backend Side - API Request
+yarn add axios
