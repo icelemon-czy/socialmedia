@@ -32,7 +32,7 @@ const Post = ({post})=> {
                 {/* p + picture*/}
                 <div className={"content"}>
                     <p>{post.desc}</p>
-                    <img src={post.img} alt={""}/>
+                    <img src={"./upload/"+post.img} alt={""}/>
                 </div>
 
                 {/* Likes comments share */}

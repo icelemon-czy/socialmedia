@@ -6,6 +6,8 @@ import likesRoutes from "./routes/likes.js"
 import postsRoutes from "./routes/posts.js"
 import cors from "cors"
 import cookieParser from "cookie-parser"
+import multer from "multer";
+
 const app = express();
 
 // middle wares - be able to send JSON File
@@ -20,6 +22,21 @@ app.use(
     })
 );
 app.use(cookieParser());
+
+// Upload file to ./ public/upload .....
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "../public/upload")
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now()+file.originalname);
+    }
+})
+const upload = multer({ storage: storage })
+app.post("/api/upload",upload.single("file"),(req,res)=>{
+    const file = req.file;
+    res.status(200).json(file.filename);
+});
 
 app.use("/api/users",userRoutes);
 app.use("/api/posts", postsRoutes);
