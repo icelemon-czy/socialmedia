@@ -9,7 +9,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import Comments from "../comments/Comments"
 import {useState} from "react";
 import moment from "moment";
-import {useQuery} from "@tanstack/react-query";
+import {QueryClient, useMutation, useQuery} from "@tanstack/react-query";
 import {makeRequest} from "../../axios";
 import {AuthContext} from "../../context/authContext";
 
@@ -24,8 +24,29 @@ const Post = ({post})=> {
         })
     );
     console.log(data);
+    // Create a client
+    const queryClient = new QueryClient();
 
-    const liked = true;
+    // Mutations
+    const mutation = useMutation(
+        (liked) => {
+            if(liked) return makeRequest.delete("/likes?postId="+post.id);
+            return makeRequest.post("/likes", { postId: post.id});
+        },
+        {
+            onSuccess: () => {
+                // Invalidate and refetch
+                queryClient.invalidateQueries(["likes"]);
+            },
+        }
+    );
+
+    const handleLike= ()=>{
+        mutation.mutate(data.includes(currentUser.id));
+    }
+
+
+
     return (
         <div className={"post"}>
             <div className={"container"}>
@@ -51,10 +72,12 @@ const Post = ({post})=> {
                 {/* Likes comments share */}
                 <div className={"operation"}>
                     <div className={"item"}>
-                        {data.includes(currentUser.id)}
-                        {/*1h 45 min 14 s*/}
-                        {liked ? <FavoriteOutlinedIcon style={{color:"red"}}/> : <FavoriteBorderOutlinedIcon/>}
-                        {data.length} likes
+                        {isLoading? ("isLoading") :
+                            data.includes(currentUser.id) ?
+                            <FavoriteOutlinedIcon style={{color:"red"}} onClick={handleLike}/>
+                            : <FavoriteBorderOutlinedIcon onClick={handleLike}/>
+                        }
+                        {isLoading? 0 : data.length}
                     </div>
                     <div className={"item"} onClick={()=>setCommentOpen(!commentOpen)}>
                         <TextsmsOutlinedIcon/>
