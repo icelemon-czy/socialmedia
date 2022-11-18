@@ -12,6 +12,8 @@ export const getPosts = (req,res) =>{
 
         const q = "SELECT p.*,u.id AS userId,name, profilePic FROM posts AS p JOIN users AS u ON (u.id = p.userId) LEFT JOIN relationships AS r ON (p.userId = r.followedUserId) AND r.followerUserId =? OR p.userId= ? ORDER BY p.createdAt DESC";
 
+        console.log("FETECH DATA +++++");
+
         db.query(q,[userInfo.id,userInfo.id],(err,data)=>{
             if(err) return res.status(500).json(err);
             return res.status(200).json(data);
@@ -33,7 +35,7 @@ export const addPost = (req,res) =>{
             req.body.desc,
             req.body.img,
             moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
-            userInfo.id
+            userInfo.id,
         ];
 
         db.query(q,[values],(err,data)=>{

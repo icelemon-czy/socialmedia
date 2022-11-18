@@ -14,50 +14,63 @@ const Share = ()=> {
     const [file, setFile] = useState(null);
     const [desc, setDesc] = useState("");
     const {currentUser} = useContext(AuthContext);
-
+    // Send file upload and get url
     const upload = async () =>{
         try{
             const formData = new FormData();
             formData.append("file",file);
             const res = await makeRequest.post("/upload",formData);
+            // res.data : 1668450499558 +  421662905903_.pic_hd.jpg
             return res.data; // Return url
         }catch (err){
             console.log(err);
         }
-    }
+    };
 
     // Create a client
-    const queryClient = new QueryClient()
+    const queryClient = new QueryClient();
 
     // Mutations
     const mutation = useMutation(
-        (data) => {
-            return makeRequest.post("/posts", data);
+        (newPost) => {
+            return makeRequest.post("/posts", newPost);
         },
         {
             onSuccess: () => {
                 // Invalidate and refetch
                 queryClient.invalidateQueries(["posts"]);
+                console.log("ABABABBA");
             },
-        })
+        }
+    );
+
     //React Query - mutation
     const handleClick = async (e) => {
         e.preventDefault();
         let imgUrl = "";
         if (file) imgUrl = await upload();
-        mutation.mutate({desc,img : imgUrl});
+        const newPost = {desc,img : imgUrl};
+        mutation.mutate(newPost);
+        setDesc("");
+        setFile(null);
     };
 
     return (
         <div className={"share"}>
             <div className={"container"}>
                 <div className={"top"}>
-                    {/*Picture + text */}
-                    <img src={currentUser.profilePic} alt={""}/>
-                    <input type="text"
-                           placeholder={`What's on your mind ${currentUser.name}?`}
-                           onChange={(e) => setDesc(e.target.value)}
-                    />
+                   <div className={"left"}>
+                       {/*Picture + text */}
+                       <img src={currentUser.profilePic} alt={""}/>
+                       <input type="text"
+                              placeholder={`What's on your mind ${currentUser.name}?`}
+                              onChange={(e) => setDesc(e.target.value)}
+                              value={desc}
+                       />
+                   </div>
+                    <div className={"right"}>
+                        {file && <img className={"file"} alt={""} src={URL.createObjectURL(file)} />}
+                    </div>
                 </div>
                 <hr/>
                 <div className={"bottom"}>

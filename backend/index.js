@@ -35,9 +35,19 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 app.post("/api/upload",upload.single("file"),(req,res)=>{
     const file = req.file;
+    /**
+     * File :
+     * field name: "file"
+     * orignial name: "4123432.pic_hd.jpg
+     * encoding '7bit'
+     * mimetype image/jpeg
+     * destination: '../public/upload'
+     * filename: 1668457 + 4123432.pic_hd.jpg
+     * path: .....
+     * size: 76417
+     */
     res.status(200).json(file.filename);
 });
-
 app.use("/api/users",userRoutes);
 app.use("/api/posts", postsRoutes);
 app.use("/api/comments",commentRoutes);

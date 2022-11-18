@@ -89,6 +89,7 @@ Token and Security:
 yarn add jsonwebtoken cookie-parser cors
 
 // Backend Side - API Request
+yarn add express mysql nodemon - backend server
 yarn add axios
 yarn add @tanstack/react-query
 

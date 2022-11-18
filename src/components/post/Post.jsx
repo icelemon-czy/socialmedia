@@ -1,4 +1,5 @@
 import "./post.scss";
+import React, {useContext} from "react"
 import { Link } from "react-router-dom";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
@@ -7,12 +8,24 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import Comments from "../comments/Comments"
 import {useState} from "react";
+import moment from "moment";
+import {useQuery} from "@tanstack/react-query";
+import {makeRequest} from "../../axios";
+import {AuthContext} from "../../context/authContext";
 
 const Post = ({post})=> {
+    const {currentUser}= useContext(AuthContext);
 
     const [commentOpen,setCommentOpen] = useState(false);
 
-    const liked = false;
+    const { isLoading, error, data } = useQuery(["likes",post.id],()=>
+        makeRequest.get("/likes?postId="+post.id).then((res)=>{
+            return res.data;
+        })
+    );
+    console.log(data);
+
+    const liked = true;
     return (
         <div className={"post"}>
             <div className={"container"}>
@@ -23,7 +36,7 @@ const Post = ({post})=> {
                             <Link to={`/profile/${post.userId}`} style={{textDecoration: "none", color: "inherit"}}>
                                 <span className={"name"}>{post.name}</span>
                             </Link>
-                            <span className={"date"}>1 min ago</span>
+                            <span className={"date"}>{moment(post.createdAt).fromNow()}</span>
                         </div>
                     </div>
                     <MoreHorizIcon/>
@@ -38,8 +51,10 @@ const Post = ({post})=> {
                 {/* Likes comments share */}
                 <div className={"operation"}>
                     <div className={"item"}>
-                        {liked ? <FavoriteOutlinedIcon/> : <FavoriteBorderOutlinedIcon/>}
-                        12 likes
+                        {data.includes(currentUser.id)}
+                        {/*1h 45 min 14 s*/}
+                        {liked ? <FavoriteOutlinedIcon style={{color:"red"}}/> : <FavoriteBorderOutlinedIcon/>}
+                        {data.length} likes
                     </div>
                     <div className={"item"} onClick={()=>setCommentOpen(!commentOpen)}>
                         <TextsmsOutlinedIcon/>
@@ -52,7 +67,7 @@ const Post = ({post})=> {
 
                 </div>
                 <div>
-                    {commentOpen && <Comments/>}
+                    {commentOpen && <Comments postId={post.id}/>}
                 </div>
 
             </div>
