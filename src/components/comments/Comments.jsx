@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react';
 import comments from './comments.scss'
 import {AuthContext} from "../../context/authContext";
-import {QueryClient, useMutation, useQuery} from "@tanstack/react-query";
+import {QueryClient,useQueryClient, useMutation, useQuery} from "@tanstack/react-query";
 import {makeRequest} from "../../axios";
 import moment from "moment";
 
@@ -16,7 +16,7 @@ const Comments = ({postId}) => {
     );
 
     // Create a client
-    const queryClient = new QueryClient();
+    const queryClient = useQueryClient();
 
     // Mutations
     const mutation = useMutation(

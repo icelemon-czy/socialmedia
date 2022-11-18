@@ -9,7 +9,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import Comments from "../comments/Comments"
 import {useState} from "react";
 import moment from "moment";
-import {QueryClient, useMutation, useQuery} from "@tanstack/react-query";
+import {QueryClient,useQueryClient,useMutation, useQuery} from "@tanstack/react-query";
 import {makeRequest} from "../../axios";
 import {AuthContext} from "../../context/authContext";
 
@@ -18,14 +18,14 @@ const Post = ({post})=> {
 
     const [commentOpen,setCommentOpen] = useState(false);
 
-    const { isLoading, error, data } = useQuery(["likes",post.id],()=>
-        makeRequest.get("/likes?postId="+post.id).then((res)=>{
+    const { isLoading, error, data } = useQuery(["likes",post.id],
+        ()=> makeRequest.get("/likes?postId="+post.id).then((res)=>{
             return res.data;
         })
     );
     console.log(data);
-    // Create a client
-    const queryClient = new QueryClient();
+    //!!!!!!!!!!!!!!!!!!!
+    const queryClient = useQueryClient();
 
     // Mutations
     const mutation = useMutation(

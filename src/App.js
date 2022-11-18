@@ -24,28 +24,28 @@ function App() {
 
     const queryClient = new QueryClient();
 
-    const Layout = ()=>{
-        return(
+    const Layout = () => {
+        return (
             <QueryClientProvider client={queryClient}>
 
-            <div className={`theme-${ darkMode ? "dark" :"light"}`}>
-                <Navbar/>
-                <div style={{display:"flex"}}>
-                    <Leftbar/>
-                    <div style={{flex:6}}>
-                        <Outlet />
+                <div className={`theme-${darkMode ? "dark" : "light"}`}>
+                    <Navbar/>
+                    <div style={{display: "flex"}}>
+                        <Leftbar/>
+                        <div style={{flex: 6}}>
+                            <Outlet/>
+                        </div>
+                        <Rightbar/>
                     </div>
-                    <Rightbar/>
                 </div>
-            </div>
 
             </QueryClientProvider>
         )
     }
 
-    const ProtectedRoute = ({children})=>{
-        if(!currentUser){
-            return <Navigate to={"/login"} />;
+    const ProtectedRoute = ({children}) => {
+        if (!currentUser) {
+            return <Navigate to={"/login"}/>;
         }
         return children
     }
@@ -53,39 +53,39 @@ function App() {
     /* Important !!!*/
     const router = createBrowserRouter([
         {
-            path:"/",
+            path: "/",
             // Which layout we will use?, children
             element: (
                 <ProtectedRoute>
                     <Layout/>
                 </ProtectedRoute>
             ),
-            children:[
+            children: [
                 {
-                    path:"/",
-                    element:<Home/>
+                    path: "/",
+                    element: <Home/>
                 },
                 {
-                    path:"/profile/:id",
-                    element:<Profile/>
+                    path: "/profile/:id",
+                    element: <Profile/>
                 },
             ]
         },
         {
-            path:"/login",
+            path: "/login",
             element: <Login/>
         },
         {
-            path:"/register",
+            path: "/register",
             element: <Register/>
         },
     ]);
 
-  return (
-      <div>
-        <RouterProvider router={router} />
-      </div>
-  );
+    return (
+        <div>
+            <RouterProvider router={router}/>
+        </div>
+    );
 }
 
 export default App;

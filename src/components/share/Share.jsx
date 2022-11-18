@@ -6,6 +6,7 @@ import Friend from "../../images/friend.png";
 import { AuthContext } from "../../context/authContext";
 import {
     useMutation,
+    useQueryClient,
     QueryClient,
 } from '@tanstack/react-query'
 import {makeRequest} from "../../axios";
@@ -28,7 +29,7 @@ const Share = ()=> {
     };
 
     // Create a client
-    const queryClient = new QueryClient();
+    const queryClient = useQueryClient();
 
     // Mutations
     const mutation = useMutation(
