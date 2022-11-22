@@ -4,9 +4,11 @@ import authRoutes from "./routes/auth.js"
 import commentRoutes from "./routes/comments.js"
 import likesRoutes from "./routes/likes.js"
 import postsRoutes from "./routes/posts.js"
+import followRoutes from "./routes/follow.js"
 import cors from "cors"
 import cookieParser from "cookie-parser"
 import multer from "multer";
+
 
 const app = express();
 
@@ -53,6 +55,7 @@ app.use("/api/posts", postsRoutes);
 app.use("/api/comments",commentRoutes);
 app.use("/api/likes",likesRoutes);
 app.use("/api/auth",authRoutes);
+app.use("/api/follow",followRoutes);
 
 app.listen(8800,()=>{
     console.log("Connected to backend!")

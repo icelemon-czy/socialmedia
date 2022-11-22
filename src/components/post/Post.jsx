@@ -52,7 +52,7 @@ const Post = ({post})=> {
             <div className={"container"}>
                 <div className={"user"}>
                     <div className={"userInfo"}>
-                        <img src={post.profilePic} alt={""}/>
+                        <img src={post.profilePic ? "/upload/"+post.profilePic:"https://images.pexels.com/photos/14028501/pexels-photo-14028501.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"} alt={""}/>
                         <div className={"details"}>
                             <Link to={`/profile/${post.userId}`} style={{textDecoration: "none", color: "inherit"}}>
                                 <span className={"name"}>{post.name}</span>
@@ -81,7 +81,7 @@ const Post = ({post})=> {
                     </div>
                     <div className={"item"} onClick={()=>setCommentOpen(!commentOpen)}>
                         <TextsmsOutlinedIcon/>
-                        12 comments
+                        comments
                     </div>
                     <div className={"item"}>
                         <ShareOutlinedIcon/>

@@ -15,6 +15,7 @@ const Share = ()=> {
     const [file, setFile] = useState(null);
     const [desc, setDesc] = useState("");
     const {currentUser} = useContext(AuthContext);
+
     // Send file upload and get url
     const upload = async () =>{
         try{
@@ -40,7 +41,6 @@ const Share = ()=> {
             onSuccess: () => {
                 // Invalidate and refetch
                 queryClient.invalidateQueries(["posts"]);
-                console.log("ABABABBA");
             },
         }
     );
@@ -62,7 +62,7 @@ const Share = ()=> {
                 <div className={"top"}>
                    <div className={"left"}>
                        {/*Picture + text */}
-                       <img src={currentUser.profilePic} alt={""}/>
+                       <img src={currentUser.profilePic ?"upload"+currentUser.profilePic:"https://images.pexels.com/photos/14028501/pexels-photo-14028501.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"} alt={""}/>
                        <input type="text"
                               placeholder={`What's on your mind ${currentUser.name}?`}
                               onChange={(e) => setDesc(e.target.value)}
