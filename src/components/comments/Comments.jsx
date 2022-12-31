@@ -27,7 +27,6 @@ const Comments = ({postId}) => {
             onSuccess: () => {
                 // Invalidate and refetch
                 queryClient.invalidateQueries(['comments']);
-                console.log("FUCK");
             },
         }
     );

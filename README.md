@@ -81,6 +81,7 @@ npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
 
 npm init -y
 npm i express mysql nodemon
+yarn add axios
 
 Password: 
 yarn add bcryptjs
@@ -90,7 +91,9 @@ yarn add jsonwebtoken cookie-parser cors
 
 // Backend Side - API Request
 yarn add express mysql nodemon - backend server
-yarn add axios
+
+
+// Front End
 yarn add @tanstack/react-query
 
 // Get Time
